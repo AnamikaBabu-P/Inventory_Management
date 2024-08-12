@@ -23,14 +23,7 @@ router.get('/inventory/new', (req,res)=>{
 
 router.post('/inventory',inventoryController.createInventory);
 
-router.get('inventory/:id/edit',async (req,res)=>{
-    try{
-        const inventory = await inventoryService.getInventory(req.params.id);
-        res.render('edit',{inventory});
-    }catch (error) {
-        res.status(500).send('Failed to load inventory item for editing');
-    }
-})
+// router.get('/inventory/:id/edit',inventoryController.getInventory);
 router.get('/inventory/:id',inventoryController.getInventory);
 router.put('/inventory/:id',inventoryController.updateInventory);
 router.delete('/inventory/:id',inventoryController.deleteInventory);

@@ -14,8 +14,9 @@
                 <h3><%= inventory.name %></h3>
                 <p>Quantity: <%= inventory.quantity %></p>
                 <p>Price: <%= inventory.price %></p>
-                <a href="/inventory/<%= inventory._id %>/edit">Edit</a> |
-                <form action="/inventory/<%= inventory._id %>?_method=DELETE" method="POST" style="display:inline;">
+                <a href="/inventory/<%= inventory.id %>">Edit</a> 
+                <% console.log(inventory.id,'iiiiiiiiiiii')%>
+                <form action="/inventory/<%= inventory.id %>?_method=DELETE" method="POST" style="display:inline;">
                     <button type="submit">Delete</button>
                 </form>
             </li>

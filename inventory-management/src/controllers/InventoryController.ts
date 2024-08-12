@@ -19,10 +19,17 @@ class InventoryController {
         }
     }
 
+
     getInventory = async(req: Request,res: Response): Promise<void> =>{
+        console.log('llllllllllllllllllll');
+        
         try{
+            console.log('jkldssdds');
+            console.log(req.params.id,'rrrrrrrrrrrrrrrrrr');
+            
+            
             const inventory = await this.inventoryService.getInventory(req.params.id);
-            res.status(200).json(inventory);
+            res.render('edit',{inventory})
         }catch (error) {
             if(error instanceof Error){
                 res.status(500).json({message: error.message});
@@ -32,10 +39,19 @@ class InventoryController {
         }
     }
 
+
+
     updateInventory = async (req: Request,res: Response): Promise<void> => {
+        console.log('trrrrrrrrrrrrrrrrrrr');
+        
         try{
+            console.log('sssssssssss');
+            console.log(req.params.id,'ttttttttt');
+            
+            console.log(req.body,'rrrrrrrrrr');
+            
             const inventory = await this.inventoryService.updateInventory(req.params.id, req.body);
-            res.status(200).json(inventory);
+            res.redirect('/')
         }catch (error) {
             if(error instanceof Error){
                 res.status(500).json({message: error.message});

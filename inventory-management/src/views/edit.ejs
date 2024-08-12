@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Edit Inventory Item</h1>
-    <form action="/inventory/<%= inventory._id %>?_method=PUT" method="POST">
+    <form action="/inventory/<%= inventory.id %>?_method=PUT" method="POST">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" value="<%= inventory.name %>" required><br><br>
 
