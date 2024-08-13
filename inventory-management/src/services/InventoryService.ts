@@ -5,6 +5,8 @@ import { CreateInventoryRequest,updateInventoryRequest,InventoryResponse } from 
 class InventoryService {
     async createInventory (data:CreateInventoryRequest):Promise<InventoryResponse>{
         try{
+            console.log('Creating inventory with data:', data);
+
             const inventory = new Inventory(data);
             const savedInventory = await inventory.save();
             return this.toResponseModel(savedInventory);
@@ -16,6 +18,8 @@ class InventoryService {
     async getAllInventories(): Promise<InventoryResponse[]> {
         try {
             const inventories = await Inventory.find();
+            console.log('invvvvvvvvv',inventories);
+            
             return inventories.map(this.toResponseModel);
         } catch (error) {
             throw new Error('Failed to retrieve inventories');
@@ -57,6 +61,7 @@ class InventoryService {
             name:inventory.name,
             quantity: inventory.quantity,
             price: inventory.price,
+            description: inventory.description,
         };
     }
 }

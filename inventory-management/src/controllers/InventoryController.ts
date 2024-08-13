@@ -5,20 +5,39 @@ import InventoryService from "../services/InventoryService";
 class InventoryController {
     constructor(private inventoryService: InventoryService){}
 
-    createInventory = async (req: Request, res: Response): Promise<void> =>{
-        try{
+    createInventory = async (req: Request, res: Response): Promise<void> => {
+        try {
+            console.log(req.body); 
             const inventory = await this.inventoryService.createInventory(req.body);
-            res.status(201).json(inventory);
-        }catch (error){
+            res.redirect('/');
+        } catch (error) {
+            if (error instanceof Error) {
+                res.status(500).json({ message: error.message });
+            } else {
+                res.status(500).json({ message: 'An unknown error occurred' });
+            }
+        }
+    }
+    
+
+    newInventory = async(req: Request,res: Response): Promise<void> =>{
+        res.render('new')
+    }
+
+    getAllInventory = async(req: Request,res: Response): Promise<void> =>{
+        try {
+        const inventories = await this.inventoryService.getAllInventories();
+        console.log(inventories,'invjfffffffffffffffff');
+        
+        res.render('index',{inventories});
+        } catch (error) {
             if(error instanceof Error){
                 res.status(500).json({message: error.message});
             }else {
                 res.status(500).json({ message: 'An unknown error occurred' });
             }
-            
         }
     }
-
 
     getInventory = async(req: Request,res: Response): Promise<void> =>{
         console.log('llllllllllllllllllll');
@@ -26,7 +45,6 @@ class InventoryController {
         try{
             console.log('jkldssdds');
             console.log(req.params.id,'rrrrrrrrrrrrrrrrrr');
-            
             
             const inventory = await this.inventoryService.getInventory(req.params.id);
             res.render('edit',{inventory})
@@ -42,14 +60,7 @@ class InventoryController {
 
 
     updateInventory = async (req: Request,res: Response): Promise<void> => {
-        console.log('trrrrrrrrrrrrrrrrrrr');
-        
         try{
-            console.log('sssssssssss');
-            console.log(req.params.id,'ttttttttt');
-            
-            console.log(req.body,'rrrrrrrrrr');
-            
             const inventory = await this.inventoryService.updateInventory(req.params.id, req.body);
             res.redirect('/')
         }catch (error) {
@@ -64,7 +75,7 @@ class InventoryController {
     deleteInventory = async (req: Request,res: Response): Promise<void> =>{
         try{
             await this.inventoryService.deleteInventory(req.params.id);
-            res.status(204).send();
+            res.redirect('/');
         }catch (error) {
             if(error instanceof Error){
                 res.status(500).json({message: error.message});

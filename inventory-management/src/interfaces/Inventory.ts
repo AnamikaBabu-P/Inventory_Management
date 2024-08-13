@@ -3,6 +3,7 @@ export interface CreateInventoryRequest{
     name: String;
     quantity: number;
     price: number;
+    description: string;
 }
 
 
@@ -10,6 +11,7 @@ export interface updateInventoryRequest {
     name?: string;
     quantity?: number;
     price?: number;
+    description?: string;
 }
 
 export interface InventoryResponse {
@@ -17,4 +19,5 @@ export interface InventoryResponse {
     name: string;
     quantity: number;
     price: number;
+    description: string;
 }
